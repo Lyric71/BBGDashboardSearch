@@ -1,12 +1,131 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import ReportList from '../../components/ReportList.astro';
+import { marked } from 'marked';
+import { readFileSync, readdirSync, existsSync } from 'fs';
+import { join } from 'path';
+
+const reportsDir = join(process.cwd(), '..', 'reports', 'competitors');
+const files = existsSync(reportsDir)
+  ? readdirSync(reportsDir).filter(f => f.endsWith('.md')).sort()
+  : [];
+
+const groups = files.map(f => {
+  const raw = readFileSync(join(reportsDir, f), 'utf8');
+  const lines = raw.split('\n');
+
+  // Extract title from first heading
+  const titleLine = lines.find(l => l.startsWith('# '));
+  const title = titleLine ? titleLine.replace('# SERP Rank Report — ', '').replace('# ', '') : f;
+
+  // Extract meta line
+  const metaLine = lines.find(l => l.startsWith('Date:'));
+  const meta = metaLine || '';
+
+  // Split into rank table section and score section
+  const scoreSep = raw.indexOf('## Top Competitor Visibility Score');
+  const rankSection = scoreSep > -1 ? raw.slice(0, scoreSep) : raw;
+  const scoreSection = scoreSep > -1 ? raw.slice(scoreSep) : '';
+
+  // Parse BBG summary from rank table
+  const tableLines = lines.filter(l => l.startsWith('| ') && !l.startsWith('| Keyword') && !l.startsWith('|---'));
+  let bbgPage1 = 0, bbgPage2 = 0, bbgMissing = 0;
+  for (const line of tableLines) {
+    const cols = line.split('|').map(c => c.trim());
+    const bbgCol = cols[3]; // BBG is 3rd col after keyword and #1
+    if (!bbgCol || bbgCol === '-') bbgMissing++;
+    else if (bbgCol.startsWith('**')) bbgPage1++;
+    else if (!bbgCol.startsWith('*')) bbgPage1++;
+    else bbgPage2++;
+  }
+
+  return {
+    id: f.replace('.md', ''),
+    title,
+    meta,
+    rankHtml: marked(rankSection),
+    scoreHtml: marked(scoreSection),
+    stats: { page1: bbgPage1, page2: bbgPage2, missing: bbgMissing, total: tableLines.length },
+  };
+});
 ---
 <Layout title="Competitors">
   <div class="mb-8">
     <a href="/" class="text-sm text-gray-400 hover:text-gray-600 mb-4 inline-block">&larr; Dashboard</a>
-    <h1 class="text-3xl font-bold mb-2" style="color: var(--bbg-red)">⚔️ Competitors</h1>
-    <p class="text-gray-500">SERP rank tracking — BBG vs top 27 competitors across all keyword categories.</p>
+    <h1 class="text-3xl font-bold mb-2" style="color: var(--bbg-red)">⚔️ Competitor Rankings</h1>
+    <p class="text-gray-500">{groups.length} keyword groups · BBG vs top 10 competitors per group · google.com</p>
   </div>
-  <ReportList dir="reports/competitors" />
+
+  <!-- BBG Overview strip -->
+  {groups.length > 0 && (
+    <div class="grid grid-cols-3 gap-3 mb-10">
+      {[
+        { label: 'Groups tracked', value: groups.length, color: 'var(--bbg-blue)' },
+        { label: 'Reports generated', value: groups.length, color: 'var(--bbg-gray-dark)' },
+        { label: 'Biggest threat', value: 'eggsist.com', color: 'var(--bbg-red)' },
+      ].map(s => (
+        <div class="rounded-3xl p-5 border border-gray-100 text-center" style="box-shadow: 10px 5px 10px rgba(0,0,0,0.05)">
+          <div class="text-2xl font-bold mb-1" style={`color: ${s.color}`}>{s.value}</div>
+          <div class="text-xs text-gray-400 uppercase tracking-wide">{s.label}</div>
+        </div>
+      ))}
+    </div>
+  )}
+
+  {groups.length === 0 ? (
+    <div class="rounded-3xl border border-dashed border-gray-200 p-12 text-center text-gray-400">
+      No reports yet. Run <code>python scripts/serp_all_groups.py</code>
+    </div>
+  ) : (
+    groups.map(g => (
+      <details class="mb-6 rounded-3xl border border-gray-100 overflow-hidden group" style="box-shadow: 10px 5px 10px rgba(0,0,0,0.05)" open={false}>
+        <summary class="flex items-center justify-between px-6 py-4 cursor-pointer select-none hover:bg-gray-50 transition-colors" style="list-style: none">
+          <div class="flex items-center gap-4">
+            <span class="text-lg font-bold">{g.title}</span>
+            <span class="text-xs text-gray-400">{g.meta.split('|')[0]?.replace('Date:', '').trim()}</span>
+          </div>
+          <div class="flex items-center gap-3">
+            {g.stats.page1 > 0 && (
+              <span class="text-xs font-semibold px-2 py-1 rounded-full text-white" style="background: var(--bbg-blue)">
+                BBG p1: {g.stats.page1}/{g.stats.total}
+              </span>
+            )}
+            {g.stats.page1 === 0 && (
+              <span class="text-xs font-semibold px-2 py-1 rounded-full text-white" style="background: var(--bbg-gray-muted)">
+                BBG not on p1
+              </span>
+            )}
+            <svg class="w-4 h-4 text-gray-400 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </div>
+        </summary>
+
+        <div class="border-t border-gray-100">
+          <!-- Rank table: horizontally scrollable -->
+          <div class="px-6 pt-5 pb-2">
+            <h3 class="text-xs font-semibold uppercase tracking-widest mb-3" style="color: var(--bbg-gray-muted)">Keyword Rankings</h3>
+            <div class="overflow-x-auto rounded-xl border border-gray-100">
+              <div class="rank-table prose max-w-none" set:html={g.rankHtml} />
+            </div>
+          </div>
+
+          <!-- Visibility scores -->
+          <div class="px-6 pb-6 pt-2">
+            <h3 class="text-xs font-semibold uppercase tracking-widest mb-3" style="color: var(--bbg-gray-muted)">Competitor Visibility Scores</h3>
+            <div class="overflow-x-auto rounded-xl border border-gray-100">
+              <div class="prose max-w-none" set:html={g.scoreHtml} />
+            </div>
+          </div>
+        </div>
+      </details>
+    ))
+  )}
 </Layout>
+
+<style>
+  /* Rank colour coding */
+  .rank-table :global(td) { white-space: nowrap; }
+  .rank-table :global(strong) { color: #16a34a; font-weight: 700; } /* top 3 = green */
+
+  details summary::-webkit-details-marker { display: none; }
+</style>
