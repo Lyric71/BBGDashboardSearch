@@ -1,0 +1,28 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ReportList from '../../components/ReportList.astro';
+
+const sections = [
+  { label: '🔍 Mots-clés', dir: 'data/raw', color: 'var(--bbg-blue)' },
+  { label: '⚔️ Concurrents', dir: 'reports/competitors', color: 'var(--bbg-red)' },
+  { label: '📢 Annonces', dir: 'reports/ads', color: 'var(--bbg-orange)' },
+  { label: '✍️ Contenu SEO', dir: 'reports/content', color: 'var(--bbg-purple)' },
+];
+---
+<Layout title="Rapports Français">
+  <div class="mb-8">
+    <a href="/" class="text-sm text-gray-400 hover:text-gray-600 mb-4 inline-block">&larr; Dashboard</a>
+    <div class="flex items-center gap-3 mb-2">
+      <span class="text-4xl">🇫🇷</span>
+      <h1 class="text-3xl font-bold">Rapports Français</h1>
+    </div>
+    <p class="text-gray-500">Marché francophone · France & Belgique</p>
+  </div>
+
+  {sections.map(s => (
+    <div class="mb-10">
+      <h2 class="text-lg font-bold mb-4" style={`color: ${s.color}`}>{s.label}</h2>
+      <ReportList dir={s.dir} langFilter="fr" />
+    </div>
+  ))}
+</Layout>

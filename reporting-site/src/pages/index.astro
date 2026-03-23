@@ -1,0 +1,70 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const topics = [
+  { slug: 'keywords', label: 'Keywords', color: 'var(--bbg-blue)', icon: '🔍', description: 'Keyword audits, volume, difficulty, and opportunity mapping.' },
+  { slug: 'competitors', label: 'Competitors', color: 'var(--bbg-red)', icon: '⚔️', description: 'SERP rank tracking vs top 10 competitors across all target keywords.' },
+  { slug: 'ads', label: 'Google Ads', color: 'var(--bbg-orange)', icon: '📢', description: 'Ad copy, RSA headlines, descriptions, and campaign recommendations.' },
+  { slug: 'content', label: 'SEO Content', color: 'var(--bbg-purple)', icon: '✍️', description: 'Content briefs, page drafts, and on-page SEO recommendations.' },
+];
+
+const languages = [
+  { code: 'en', label: 'English', flag: '🇬🇧', market: 'Global' },
+  { code: 'fr', label: 'Français', flag: '🇫🇷', market: 'France · Belgium' },
+];
+---
+<Layout title="Dashboard">
+  <div class="mb-10">
+    <h1 class="text-3xl font-bold mb-2">SEO & Ads Intelligence</h1>
+    <p class="text-gray-500">beyondbordergroup.com · China Ecommerce & Market Entry Consulting</p>
+  </div>
+
+  <!-- By Topic -->
+  <section class="mb-12">
+    <h2 class="text-xs font-semibold uppercase tracking-widest mb-4" style="color: var(--bbg-gray-muted)">By Topic</h2>
+    <div class="grid grid-cols-2 gap-4 lg:grid-cols-4">
+      {topics.map(t => (
+        <a href={`/topics/${t.slug}`} class="block rounded-3xl p-6 border border-gray-100 hover:shadow-lg transition-all hover:-translate-y-0.5" style="box-shadow: 10px 5px 10px rgba(0,0,0,0.05)">
+          <div class="text-2xl mb-3">{t.icon}</div>
+          <div class="font-bold text-base mb-1" style={`color: ${t.color}`}>{t.label}</div>
+          <div class="text-sm text-gray-500 leading-relaxed">{t.description}</div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- By Language -->
+  <section class="mb-12">
+    <h2 class="text-xs font-semibold uppercase tracking-widest mb-4" style="color: var(--bbg-gray-muted)">By Language</h2>
+    <div class="grid grid-cols-2 gap-4">
+      {languages.map(l => (
+        <a href={`/lang/${l.code}`} class="flex items-center gap-4 rounded-3xl p-6 border border-gray-100 hover:shadow-lg transition-all hover:-translate-y-0.5" style="box-shadow: 10px 5px 10px rgba(0,0,0,0.05)">
+          <span class="text-4xl">{l.flag}</span>
+          <div>
+            <div class="font-bold text-base">{l.label}</div>
+            <div class="text-sm text-gray-400">{l.market}</div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- Quick Stats -->
+  <section>
+    <h2 class="text-xs font-semibold uppercase tracking-widest mb-4" style="color: var(--bbg-gray-muted)">Current Status</h2>
+    <div class="rounded-3xl border border-gray-100 overflow-hidden" style="box-shadow: 10px 5px 10px rgba(0,0,0,0.05)">
+      <table>
+        <thead>
+          <tr><th>Metric</th><th>Value</th><th>Note</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="font-medium">Keywords tracked</td><td class="font-bold" style="color: var(--bbg-blue)">160</td><td class="text-gray-400">EN + FR across 8 categories</td></tr>
+          <tr><td class="font-medium">Competitors tracked</td><td class="font-bold" style="color: var(--bbg-red)">27</td><td class="text-gray-400">China ecommerce & market entry agencies</td></tr>
+          <tr><td class="font-medium">BBG best rank (EN)</td><td class="font-bold" style="color: var(--bbg-orange)">#2</td><td class="text-gray-400">"china cross border ecommerce consulting"</td></tr>
+          <tr><td class="font-medium">Page 1 keywords</td><td class="font-bold text-gray-400">0</td><td class="text-gray-400">Core consulting terms — all page 2+</td></tr>
+          <tr><td class="font-medium">Biggest opportunity</td><td class="font-bold" style="color: var(--bbg-purple)">FR market</td><td class="text-gray-400">Near-zero competition in French</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</Layout>

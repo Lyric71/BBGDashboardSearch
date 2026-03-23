@@ -1,0 +1,48 @@
+---
+import { marked } from 'marked';
+import { readFileSync, readdirSync, existsSync } from 'fs';
+import { join } from 'path';
+
+interface Props {
+  dir: string;
+  prefix?: string;
+  langFilter?: string;
+}
+
+const { dir, prefix, langFilter } = Astro.props;
+const baseDir = join(process.cwd(), '..', dir);
+
+let files: string[] = [];
+if (existsSync(baseDir)) {
+  files = readdirSync(baseDir).filter(f => {
+    if (!f.endsWith('.md')) return false;
+    if (prefix && !f.startsWith(prefix)) return false;
+    if (langFilter && !f.includes(`_${langFilter}`) && !f.includes(`-${langFilter}`)) return false;
+    return true;
+  });
+}
+
+const reports = files.map(f => ({
+  name: f.replace('.md', '').replace(/_/g, ' ').replace(/-/g, ' '),
+  file: f,
+  html: marked(readFileSync(join(baseDir, f), 'utf8')),
+}));
+---
+
+{reports.length === 0 ? (
+  <div class="rounded-3xl border border-dashed border-gray-200 p-12 text-center text-gray-400">
+    No reports yet in <code>{dir}</code>
+  </div>
+) : (
+  <div>
+    {reports.map(r => (
+      <div class="mb-8 rounded-3xl border border-gray-100 overflow-hidden" style="box-shadow: 10px 5px 10px rgba(0,0,0,0.05)">
+        <div class="px-6 py-4 border-b border-gray-100 flex items-center justify-between" style="background: var(--bbg-gray-light)">
+          <h2 class="font-semibold capitalize">{r.name}</h2>
+          <span class="text-xs text-gray-400">{r.file}</span>
+        </div>
+        <div class="p-6 prose max-w-none overflow-x-auto" set:html={r.html} />
+      </div>
+    ))}
+  </div>
+)}

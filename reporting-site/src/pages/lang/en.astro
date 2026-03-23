@@ -1,0 +1,28 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ReportList from '../../components/ReportList.astro';
+
+const sections = [
+  { label: '🔍 Keywords', dir: 'data/raw', color: 'var(--bbg-blue)' },
+  { label: '⚔️ Competitors', dir: 'reports/competitors', color: 'var(--bbg-red)' },
+  { label: '📢 Ads', dir: 'reports/ads', color: 'var(--bbg-orange)' },
+  { label: '✍️ Content', dir: 'reports/content', color: 'var(--bbg-purple)' },
+];
+---
+<Layout title="English Reports">
+  <div class="mb-8">
+    <a href="/" class="text-sm text-gray-400 hover:text-gray-600 mb-4 inline-block">&larr; Dashboard</a>
+    <div class="flex items-center gap-3 mb-2">
+      <span class="text-4xl">🇬🇧</span>
+      <h1 class="text-3xl font-bold">English Reports</h1>
+    </div>
+    <p class="text-gray-500">Global English market · google.com</p>
+  </div>
+
+  {sections.map(s => (
+    <div class="mb-10">
+      <h2 class="text-lg font-bold mb-4" style={`color: ${s.color}`}>{s.label}</h2>
+      <ReportList dir={s.dir} langFilter="en" />
+    </div>
+  ))}
+</Layout>
