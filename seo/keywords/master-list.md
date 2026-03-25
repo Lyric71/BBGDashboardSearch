@@ -19,18 +19,6 @@ Topic: China Ecommerce & Market Entry Consulting
 - china ecommerce experts
 - china ecommerce advisor
 
-### China Ecommerce Agency (FR)
-- agence ecommerce chine
-- consultant ecommerce chine
-- consulting ecommerce chine
-- services ecommerce chine
-- stratégie ecommerce chine
-- gestion ecommerce chine
-- solutions ecommerce chine
-- expert ecommerce chine
-- agence chine ecommerce
-- conseil ecommerce chine
-
 ### Cross-Border Ecommerce (EN)
 - china cross border ecommerce consulting
 - cross border ecommerce china
@@ -41,19 +29,6 @@ Topic: China Ecommerce & Market Entry Consulting
 - china CBEC strategy
 - china CBEC solutions
 - cross border commerce china consultant
-
-### Cross-Border Ecommerce (FR)
-- ecommerce transfrontalier chine
-- cross border eCommerce Chine
-- agence ecommerce transfrontalier chine
-- consulting ecommerce transfrontalier chine
-- CBEC chine consulting
-- agence CBEC
-- stratégie CBEC chine
-- solutions CBEC chine
-- consultant commerce transfrontalier chine
-- vendre en chine sans entité
-- ecommerce chine sans entité juridique
 
 ### Market Entry
 - china market entry consulting
@@ -157,23 +132,7 @@ Topic: China Ecommerce & Market Entry Consulting
 
 ---
 
-## 4. DISTRIBUTION & OPERATIONS KEYWORDS
-
-- china distributor consulting
-- china distribution strategy
-- find distributor in china
-- china 3pl consulting
-- china logistics consulting
-- china warehousing consulting
-- bonded warehouse china
-- china fulfillment consulting
-- china supply chain consulting
-- china import consulting
-- daigou china consulting
-
----
-
-## 5. INDUSTRY/AUDIENCE KEYWORDS
+## 4. INDUSTRY/AUDIENCE KEYWORDS
 
 - sell luxury brands in china
 - sell beauty products in china
@@ -191,7 +150,7 @@ Topic: China Ecommerce & Market Entry Consulting
 
 ---
 
-## 6. RESEARCH & STRATEGY KEYWORDS
+## 5. RESEARCH & STRATEGY KEYWORDS
 
 - china market research consulting
 - china consumer insights agency
@@ -206,7 +165,7 @@ Topic: China Ecommerce & Market Entry Consulting
 
 ---
 
-## 7. LONG-TAIL / HIGH-INTENT KEYWORDS
+## 6. LONG-TAIL / HIGH-INTENT KEYWORDS
 
 - how to sell products in china online
 - how to list products on tmall global
@@ -224,4 +183,3 @@ Topic: China Ecommerce & Market Entry Consulting
 - china ecommerce cost how much
 - china market entry cost consulting
 - is china ecommerce worth it for my brand
-

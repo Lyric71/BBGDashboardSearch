@@ -1,12 +1,554 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import ReportList from '../../components/ReportList.astro';
+
+const campaigns = [
+  {
+    id: 'C1',
+    name: 'Cross-Border eCommerce',
+    color: '#e8562a',
+    adGroups: [
+      {
+        id: '1A',
+        name: 'CBEC Generic',
+        keywords: [
+          'cross border ecommerce china','china cross border ecommerce consulting',
+          'CBEC consulting china','CBEC agency','cross border ecommerce agency china',
+          'cross border ecommerce agency','china CBEC strategy','china CBEC solutions',
+          'cross border commerce china consultant',
+        ],
+        headlines: [
+          'Cross-Border eCommerce China','China CBEC Experts','Sell in China via CBEC',
+          'Cross-Border Strategy China','CBEC Done Right','Your China CBEC Partner',
+          'Launch via Cross-Border','China Cross-Border Agency','CBEC Strategy & Execution',
+          'Skip the Red Tape',
+        ],
+        descriptions: [
+          'We build cross-border ecommerce operations that actually sell. Strategy to store management.',
+          'Launch on Tmall Global or JD Worldwide without a Chinese entity. We handle the full setup.',
+          'From platform selection to daily operations. Brands trust us to run their China CBEC business.',
+          'Cross-border is the fastest route into China. We help you pick the right model and execute it.',
+        ],
+      },
+      {
+        id: '1B',
+        name: 'Sell Without Entity',
+        keywords: [
+          'china ecommerce without entity','sell in china without chinese company',
+          'china cross border ecommerce without entity',
+        ],
+        headlines: [
+          'Sell in China, No Entity','No Chinese Company Needed','China Sales Without Entity',
+          'Skip the Entity Setup','Go Live in China Faster','No Local Entity Required',
+          'Start Selling in 8 Weeks','China Revenue, No Red Tape','Cross-Border = No Entity',
+          'Sell in China Tomorrow',
+        ],
+        descriptions: [
+          'No Chinese entity? No problem. Cross-border ecommerce lets you sell directly to Chinese consumers.',
+          'Skip the 12-month entity setup. We launch your brand on Tmall Global or JD Worldwide via CBEC.',
+          'Brands sell millions in China without a local company. We show you how and run it for you.',
+          'Cross-border ecommerce means no entity, no local bank account, no CFDA registration for most SKUs.',
+        ],
+      },
+      {
+        id: '1C',
+        name: 'CBEC Market Entry',
+        keywords: [
+          'china market entry consulting','china market entry agency','china market entry strategy',
+          'china market entry services','enter chinese market','entering the china market',
+          'how to enter china market','china market entry for brands','launch brand in china',
+          'china brand launch consulting','china business entry consulting',
+        ],
+        headlines: [
+          'Enter China via CBEC','China Market Entry, Fast','Launch Your Brand in China',
+          'CBEC Market Entry Experts','Your First China Sales','From Zero to China Revenue',
+          'China Launch via CBEC','Market Entry Made Simple','Go Live on Tmall Global',
+          'We Launch Brands in China',
+        ],
+        descriptions: [
+          'Market entry through cross-border is faster and cheaper than general trade. We plan and execute it.',
+          'We\'ve launched 40+ brands into China via CBEC. From feasibility to first sale in under 90 days.',
+          'Your China market entry, handled. Platform setup, product listing, logistics, marketing activation.',
+          'Not sure if China is right for your brand? We run feasibility assessments before you commit budget.',
+        ],
+      },
+      {
+        id: '1D',
+        name: 'CBEC vs General Trade',
+        keywords: [
+          'cbec vs general trade china','tmall global vs jd worldwide',
+          'tmall global vs jd worldwide which is better',
+        ],
+        headlines: [
+          'CBEC or General Trade?','Which China Model Fits You','CBEC vs General Trade',
+          'Pick the Right China Route','Cross-Border or Local?','We Help You Decide',
+          'China Entry: Two Routes','Compare CBEC & Local Trade','Smart China Market Entry',
+          "Don't Guess, Get Advice",
+        ],
+        descriptions: [
+          'CBEC or general trade? The wrong choice costs you years and millions. We help you pick the right one.',
+          'Cross-border is faster but has limits. General trade gives full access but costs more. We advise.',
+          "Most brands don't know which China entry model fits them. We've helped 40+ brands decide and launch.",
+          'Get a clear comparison of CBEC vs general trade for your category, margins, and growth ambitions.',
+        ],
+      },
+      {
+        id: '1E',
+        name: 'CBEC Platforms',
+        keywords: [
+          'tmall global consulting','tmall global agency','sell on tmall','how to sell on tmall',
+          'how to list products on tmall global','how to open tmall global store',
+          'jd worldwide consulting','china ecommerce platform consulting',
+        ],
+        headlines: [
+          'Tmall Global Experts','JD Worldwide Partner','Launch on Tmall Global',
+          'Sell on JD Worldwide','Tmall or JD? We Advise','CBEC Platform Setup China',
+          'Your Tmall Global Partner','Go Live on JD Worldwide','Platform Experts China',
+          'We Run Your China Store',
+        ],
+        descriptions: [
+          'Tmall Global or JD Worldwide? We help you pick the right platform and manage your store end to end.',
+          'From store setup to daily operations. We run your Tmall Global or JD Worldwide business for you.',
+          "Platform selection is the first decision that matters. We've operated on every major China marketplace.",
+          'Bonded warehouse, product listing, pricing strategy, store design. We handle the full CBEC stack.',
+        ],
+      },
+      {
+        id: '1F',
+        name: 'CBEC by Industry',
+        keywords: [
+          'sell beauty products in china','sell cosmetics in china','sell health products in china',
+          'sell supplements in china ecommerce','sell food in china ecommerce',
+          'sell luxury brands in china','sell fashion in china','foreign brand china ecommerce',
+          'international brand china market','european brand china market entry',
+        ],
+        headlines: [
+          'Sell Beauty in China','Cosmetics CBEC China','Health Brands Enter China',
+          'Luxury Brands in China','Fashion Brands in China','Food & Supplements China',
+          'European Brands in China','Foreign Brands Sell China','Your Category, Our China',
+          'We Know Your Sector',
+        ],
+        descriptions: [
+          "Beauty, health, food, fashion. We've launched brands in your category via cross-border into China.",
+          'Regulatory requirements vary by industry. We know which products work via CBEC and which need local trade.',
+          'European and international brands trust us to handle their China market entry. From niche to scale.',
+          'Your product category shapes your China strategy. We tailor platform, pricing, and content to your sector.',
+        ],
+      },
+    ],
+  },
+  {
+    id: 'C2',
+    name: 'China eCommerce Consulting',
+    color: '#2563eb',
+    adGroups: [
+      {
+        id: '2A',
+        name: 'Consulting Generic',
+        keywords: [
+          'china ecommerce consulting','china ecommerce consultant','ecommerce consulting china',
+          'china ecommerce strategy','china ecommerce strategy consulting',
+          'china ecommerce solutions','china ecommerce experts','china ecommerce advisor',
+        ],
+        headlines: [
+          'China eCommerce Consulting','China eCommerce Strategy','China eCommerce Experts',
+          'Your China eCommerce Advisor','Smart China eCommerce Plan','Get China Right First Time',
+          'China eCommerce, Sorted','Grow Your China Sales','China Strategy That Works',
+          'Stop Guessing About China',
+        ],
+        descriptions: [
+          "We help brands build China ecommerce strategies that translate into actual revenue. Not just slides.",
+          'Platform selection, pricing, logistics, marketing plan. We cover every angle of your China strategy.',
+          'Our consultants have operated in China for 10+ years. Strategy grounded in daily platform experience.',
+          'Get a clear China ecommerce roadmap before you spend a dollar. We assess, plan, then execute.',
+        ],
+      },
+      {
+        id: '2B',
+        name: 'Market Entry Strategy',
+        keywords: [
+          'china market entry consulting','china market entry strategy','china market entry services',
+          'enter chinese market','how to enter china market','china market entry for brands',
+          'china market expansion consulting','china brand launch consulting',
+          'go to market strategy china','market entry strategy china consulting',
+          'china business entry consulting',
+        ],
+        headlines: [
+          'China Market Entry Strategy','Enter the China Market','Launch Your Brand in China',
+          'China Market Entry Experts','How to Enter China Market','China Go-to-Market Plan',
+          'Your China Launch Partner','Plan Your China Entry','Brand Launch China',
+          'China Expansion Consulting',
+        ],
+        descriptions: [
+          'Thinking about China? We help brands plan realistic market entry strategies that lead to real sales.',
+          'Market entry is more than picking a platform. Distribution, pricing, regulatory, content. We plan it all.',
+          "We've launched 40+ international brands into China. Strategy, setup, and ongoing operations.",
+          'China market entry done properly. Feasibility first, then a phased plan you can actually execute.',
+        ],
+      },
+      {
+        id: '2C',
+        name: 'Feasibility & Cost',
+        keywords: [
+          'china ecommerce cost how much','china market entry cost consulting',
+          'is china ecommerce worth it for my brand','china market feasibility study',
+          'china market opportunity assessment','china ecommerce consulting for small brands',
+          'china market entry consulting for startups',
+        ],
+        headlines: [
+          'China Market Feasibility','How Much Does China Cost?','Is China Right for You?',
+          'China eCommerce ROI Check','China Budget Assessment','Before You Invest in China',
+          'China Market Readiness','Realistic China Budget Plan','China Entry Cost Analysis',
+          'Small Brand? Start Smart',
+        ],
+        descriptions: [
+          "Not sure China is worth it? We run honest feasibility assessments. No sugar-coating, just numbers.",
+          'We help brands understand the real cost of selling in China before they commit significant budget.',
+          'Small brand with big China ambitions? We build lean entry strategies that match your actual resources.',
+          'China entry costs vary wildly by model. We give you a clear breakdown for your specific category.',
+        ],
+      },
+      {
+        id: '2D',
+        name: 'Research & Positioning',
+        keywords: [
+          'china market research consulting','china consumer insights agency',
+          'china competitive analysis','china market feasibility study',
+          'china ecommerce market research','china brand positioning consulting',
+          'china market opportunity assessment','china retail consulting',
+          'china localization consulting','china product localization',
+        ],
+        headlines: [
+          'China Consumer Research','China Brand Positioning','China Market Intelligence',
+          'China Competitive Analysis','Know Your China Audience','China Localization Experts',
+          'China Product Localization','China Market Deep Dive','Understand Chinese Buyers',
+          'China Insight, Not Guesswork',
+        ],
+        descriptions: [
+          'Great China strategy starts with real consumer insight. We research your category and competition first.',
+          'Brand positioning for China is not a translation exercise. We build positioning that resonates locally.',
+          'We analyze your competitive landscape in China so you enter with a clear, defensible market position.',
+          'Product localization, naming, messaging, visual identity. We adapt your brand for Chinese consumers.',
+        ],
+      },
+      {
+        id: '2E',
+        name: 'Platform Comparison',
+        keywords: [
+          'china ecommerce platform consulting','tmall global vs jd worldwide which is better',
+        ],
+        headlines: [
+          'Tmall vs JD: Which One?','China Platform Comparison','Pick the Right Platform',
+          'Tmall Global or JD?','Which China Platform Fits?','Platform Strategy China',
+          "Don't Pick the Wrong One",'Expert Platform Advice','Compare China Marketplaces',
+          'Douyin, Tmall, JD, RED?',
+        ],
+        descriptions: [
+          'Tmall, JD, Douyin, RED. Each platform serves a different purpose. We help you pick the right mix.',
+          'Platform selection shapes everything. Margins, audience, growth trajectory. Get it right the first time.',
+          'Most brands pick their China platform based on hearsay. We advise based on category data and margins.',
+          "We've operated on every major Chinese marketplace. Our advice comes from daily platform experience.",
+        ],
+      },
+    ],
+  },
+  {
+    id: 'C3',
+    name: 'China eCommerce Agency',
+    color: '#16a34a',
+    adGroups: [
+      {
+        id: '3A',
+        name: 'Agency Generic',
+        keywords: [
+          'china ecommerce agency','china ecommerce services','china ecommerce management',
+          'best agency to sell in china','china ecommerce agency for western brands',
+          'how to sell products in china online','western brand sell in china',
+          'canadian brand china market','australian brand china market',
+        ],
+        headlines: [
+          'China eCommerce Agency','Your China Sales Team','We Run Your China Store',
+          'China eCommerce, Managed','Best China eCommerce Agency','Sell More in China',
+          'China Revenue, Delivered','Full Service China Agency','We Grow China Sales',
+          'China Operations Handled',
+        ],
+        descriptions: [
+          "We don't just advise. We run your China ecommerce business day to day. Strategy through execution.",
+          'Store management, content, marketing, logistics coordination. One team for your entire China operation.',
+          "Looking for a China ecommerce agency that actually runs stores? We manage 40+ brands across platforms.",
+          "Senior practitioners, not junior consultants. We operate your China business like it's our own.",
+        ],
+      },
+      {
+        id: '3B',
+        name: 'Tmall / Tmall Global',
+        keywords: [
+          'tmall consulting','tmall agency','tmall partner agency','tmall setup consulting',
+          'tmall store management','tmall for foreign brands','tmall market entry',
+          'tmall partner','tmall TP agency','open store tmall',
+        ],
+        headlines: [
+          'Tmall Agency','Tmall Global Partner','Sell on Tmall Global',
+          'Tmall Store Management','Open Your Tmall Store','Tmall Global Experts',
+          'Tmall TP Agency','Launch on Tmall Global','Tmall for Foreign Brands',
+          'Your Tmall Partner Agency',
+        ],
+        descriptions: [
+          'We set up and manage Tmall Global stores for international brands. From listing to daily operations.',
+          "Tmall Global is China's top cross-border platform. We help you get listed and start selling fast.",
+          'Store design, product listing, pricing, promotions, customer service. We handle your Tmall business.',
+          'Already on Tmall but underperforming? We take over store operations and turn around your China sales.',
+        ],
+      },
+      {
+        id: '3C',
+        name: 'JD.com',
+        keywords: [
+          'jd.com consulting','jd.com agency','sell on jd.com','jd worldwide consulting',
+          'jd.com partner agency','how to sell on jd china','jd.com store management',
+        ],
+        headlines: [
+          'JD.com Agency','Sell on JD.com','JD Worldwide Partner',
+          'JD.com Store Management','Launch on JD Worldwide','Your JD.com Partner',
+          'JD China Experts','JD Store Setup & Ops','JD Worldwide for Brands',
+          'Grow Sales on JD.com',
+        ],
+        descriptions: [
+          'JD.com reaches 600M+ users with best-in-class logistics. We manage your JD store end to end.',
+          'JD Worldwide is ideal for health, electronics, and premium brands. We handle setup and operations.',
+          'From store opening to daily order management. We run your JD.com business so you can focus on product.',
+          'Not sure about JD? We advise on platform fit and manage your store if JD is the right choice for you.',
+        ],
+      },
+      {
+        id: '3D',
+        name: 'Douyin / Live Commerce',
+        keywords: [
+          'douyin ecommerce consulting','douyin agency','douyin for brands',
+          'douyin live commerce consulting','douyin shop setup','tiktok china ecommerce',
+          'douyin marketing agency','live commerce china consulting','china live streaming marketing',
+        ],
+        headlines: [
+          'Douyin eCommerce Agency','Douyin for Brands','China Live Commerce Experts',
+          'Sell on Douyin','Douyin Shop Setup','Live Selling in China',
+          'Douyin Marketing Agency','TikTok China eCommerce','Douyin Store Management',
+          'Go Live, Sell More',
+        ],
+        descriptions: [
+          "Douyin is China's fastest-growing commerce channel. We help brands set up shops and sell through live.",
+          'Douyin ecommerce is not just hype. We build Douyin shops, run live sessions, and scale your sales.',
+          'Live commerce in China works. We set up your Douyin presence and manage content that converts.',
+          'From Douyin shop setup to livestream operations. We handle the full Douyin commerce stack for brands.',
+        ],
+      },
+      {
+        id: '3E',
+        name: 'Xiaohongshu / RED',
+        keywords: [
+          'xiaohongshu agency','little red book agency','RED china marketing',
+          'xiaohongshu marketing consulting','little red book marketing consulting',
+          'xiaohongshu for brands','RED ecommerce consulting',
+        ],
+        headlines: [
+          'Xiaohongshu Agency','Little Red Book Experts','RED China Marketing',
+          'Sell on Xiaohongshu','RED for Beauty Brands','Xiaohongshu for Brands',
+          'Little Red Book Agency','RED Content & Commerce','Grow on Xiaohongshu',
+          'Your RED China Partner',
+        ],
+        descriptions: [
+          'Xiaohongshu is where Chinese consumers discover brands. We build your RED presence and drive sales.',
+          "RED is not just social media. It's a search engine and a store. We manage both content and commerce.",
+          'Beauty, fashion, lifestyle brands perform best on RED. We create content that converts on Xiaohongshu.',
+          'From KOL seeding to Xiaohongshu shop management. We handle your RED strategy and daily operations.',
+        ],
+      },
+      {
+        id: '3F',
+        name: 'WeChat / Social Commerce',
+        keywords: [
+          'wechat marketing agency','wechat consulting','wechat store setup',
+          'weibo marketing agency','wechat mini program agency','wechat ecommerce consulting',
+          'china social media agency','china social commerce consulting',
+        ],
+        headlines: [
+          'WeChat Marketing Agency','WeChat Store Setup','WeChat Mini Program Agency',
+          'China Social Commerce','WeChat eCommerce Experts','Sell via WeChat',
+          'WeChat for Brands','Build Your WeChat Store','China Social Media Agency',
+          'WeChat CRM & Commerce',
+        ],
+        descriptions: [
+          "WeChat is China's everything app. We build mini programs, stores, and CRM systems that drive repeat sales.",
+          'WeChat is where your Chinese customers live. We help you reach them with content, commerce, and CRM.',
+          'Mini programs, official accounts, WeChat stores. We set up and manage your full WeChat ecosystem.',
+          'Social commerce in China starts with WeChat. We build the infrastructure that turns followers into buyers.',
+        ],
+      },
+      {
+        id: '3G',
+        name: 'Digital Marketing / KOL',
+        keywords: [
+          'china digital marketing agency','china digital marketing consulting',
+          'china digital marketing services','china online marketing agency',
+          'china seo agency','china sem agency','china ppc agency','china kol marketing',
+          'china influencer marketing agency','china content marketing agency',
+          'chinese digital strategy consulting','china social media marketing agency',
+          'china brand awareness consulting','china performance marketing agency',
+        ],
+        headlines: [
+          'China Digital Marketing','China KOL Marketing','China Influencer Agency',
+          'China Content Marketing','China Performance Marketing','KOL Campaigns That Convert',
+          'China Media Buying Agency','Reach Chinese Consumers','China Brand Awareness',
+          'Drive Sales in China',
+        ],
+        descriptions: [
+          'KOL campaigns, paid media, content production. We run digital marketing that drives China ecommerce sales.',
+          "We don't just pick influencers. We build full-funnel campaigns that connect awareness to actual purchases.",
+          'China digital marketing needs local expertise. We plan and execute campaigns across all major platforms.',
+          'From brand awareness to conversion. Our China marketing campaigns are built around your sales targets.',
+        ],
+      },
+    ],
+  },
+  {
+    id: 'C4',
+    name: 'Finding a Distributor in China',
+    color: '#7c3aed',
+    adGroups: [
+      {
+        id: '4A',
+        name: 'Distributor Search',
+        keywords: [
+          'find distributor in china','how to find chinese distributor',
+          'china distributor consulting','china distribution strategy',
+        ],
+        headlines: [
+          'Find a Distributor China','China Distributor Search','Chinese Distributor Partner',
+          'Find Your China Partner','China Import Partner','Distributor Sourcing China',
+          'The Right China Distributor','We Find Your Distributor','China Partner Selection',
+          'Vetted China Distributors',
+        ],
+        descriptions: [
+          'Finding the right Chinese distributor is the hardest part. We source, vet, and negotiate on your behalf.',
+          'The wrong distributor kills your brand in China. We help you find one that actually fits your category.',
+          "We've helped 40+ brands find and structure distribution partnerships in China. Sourcing to contract.",
+          "Don't pick a China distributor blind. We assess fit, negotiate terms, and monitor performance for you.",
+        ],
+      },
+      {
+        id: '4B',
+        name: 'Distribution Strategy',
+        keywords: [
+          'china distribution strategy','china distribution network','china retail distribution',
+          'china general trade','china omnichannel distribution','china channel strategy',
+        ],
+        headlines: [
+          'China Distribution Strategy','China Distribution Planning','Build Your China Network',
+          'China Retail Distribution','Omnichannel China Strategy','Offline Distribution China',
+          'China General Trade Setup','Distribution Architecture','China Channel Strategy',
+          'Scale Your China Network',
+        ],
+        descriptions: [
+          'Distribution in China is not one channel. We design multi-channel architectures that reach the right buyers.',
+          'Online, offline, general trade, CBEC. We build distribution strategies that match your growth stage.',
+          'Most brands get China distribution wrong because they start with one channel. We plan the full picture.',
+          'General trade, key accounts, regional distributors. We help you structure China distribution properly.',
+        ],
+      },
+    ],
+  },
+];
+
+const negativeKeywords = [
+  'jobs','salary','career','internship','intern','course','training','free','PDF','download',
+  'template','wikipedia','what is','definition','meaning','tutorial','example','sample',
+  'case study','book','certification','degree','masters','MBA','reddit','quora','blog',
+  'news','amazon','alibaba','aliexpress','wish','shein','temu',
+];
 ---
 <Layout title="Google Ads">
   <div class="mb-8">
     <a href="/" class="text-sm text-gray-400 hover:text-gray-600 mb-4 inline-block">&larr; Dashboard</a>
-    <h1 class="text-3xl font-bold mb-2" style="color: var(--bbg-orange)">📢 Google Ads</h1>
-    <p class="text-gray-500">RSA ad copy, headlines, descriptions, and campaign recommendations in EN & FR.</p>
+    <h1 class="text-3xl font-bold mb-2" style="color: var(--bbg-orange)">Google Ads Campaigns</h1>
+    <p class="text-gray-500 mb-1">4 campaigns · 13 ad groups · All PAUSED — review before enabling.</p>
+    <p class="text-gray-400 text-sm">Final URL: https://beyondbordergroup.com</p>
   </div>
-  <ReportList dir="reports/ads" />
+
+  <!-- Campaign cards -->
+  {campaigns.map(campaign => (
+    <div class="mb-10 border border-gray-200 rounded-xl overflow-hidden">
+      <!-- Campaign header -->
+      <div class="px-6 py-4 flex items-center gap-3" style={`background: ${campaign.color}18; border-bottom: 2px solid ${campaign.color}`}>
+        <span class="text-xs font-bold px-2 py-0.5 rounded text-white" style={`background: ${campaign.color}`}>{campaign.id}</span>
+        <h2 class="font-bold text-lg" style={`color: ${campaign.color}`}>{campaign.name}</h2>
+        <span class="ml-auto text-xs text-gray-400 bg-gray-100 px-2 py-0.5 rounded">PAUSED</span>
+        <span class="text-xs text-gray-400">{campaign.adGroups.length} ad groups</span>
+      </div>
+
+      <!-- Ad groups -->
+      <div class="divide-y divide-gray-100">
+        {campaign.adGroups.map(ag => (
+          <details class="group">
+            <summary class="flex items-center gap-3 px-6 py-3 cursor-pointer hover:bg-gray-50 list-none">
+              <span class="text-xs font-mono font-bold text-gray-400">{ag.id}</span>
+              <span class="font-medium text-gray-800">{ag.name}</span>
+              <span class="text-xs text-gray-400 ml-1">{ag.keywords.length} kw · {ag.headlines.length} headlines</span>
+              <svg class="ml-auto w-4 h-4 text-gray-400 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </summary>
+
+            <div class="px-6 pb-5 pt-1 grid grid-cols-1 md:grid-cols-3 gap-5">
+              <!-- Keywords -->
+              <div>
+                <div class="text-xs font-bold uppercase tracking-wide text-gray-400 mb-2">Keywords</div>
+                <ul class="space-y-1">
+                  {ag.keywords.map(kw => (
+                    <li class="text-sm text-gray-700 bg-gray-50 rounded px-2 py-0.5 font-mono">{kw}</li>
+                  ))}
+                </ul>
+              </div>
+
+              <!-- Headlines -->
+              <div>
+                <div class="text-xs font-bold uppercase tracking-wide text-gray-400 mb-2">Headlines <span class="normal-case font-normal">(≤30 chars)</span></div>
+                <ol class="space-y-1">
+                  {ag.headlines.map((h, i) => (
+                    <li class="text-sm text-gray-700 flex gap-2">
+                      <span class="text-gray-300 font-mono text-xs w-4 shrink-0 pt-0.5">{i+1}</span>
+                      <span>{h}</span>
+                      <span class="ml-auto text-gray-300 font-mono text-xs shrink-0">{h.length}</span>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+
+              <!-- Descriptions -->
+              <div>
+                <div class="text-xs font-bold uppercase tracking-wide text-gray-400 mb-2">Descriptions <span class="normal-case font-normal">(≤90 chars)</span></div>
+                <ol class="space-y-2">
+                  {ag.descriptions.map((d, i) => (
+                    <li class="text-sm text-gray-700 flex gap-2">
+                      <span class="text-gray-300 font-mono text-xs w-4 shrink-0 pt-0.5">{i+1}</span>
+                      <span class="leading-snug">{d}</span>
+                      <span class="ml-auto text-gray-300 font-mono text-xs shrink-0">{d.length}</span>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  ))}
+
+  <!-- Negative keywords -->
+  <div class="border border-gray-200 rounded-xl overflow-hidden">
+    <div class="px-6 py-4 bg-gray-50 border-b border-gray-200">
+      <h2 class="font-bold text-gray-700">Global Negative Keywords</h2>
+      <p class="text-xs text-gray-400 mt-0.5">Shared across all campaigns</p>
+    </div>
+    <div class="px-6 py-4 flex flex-wrap gap-2">
+      {negativeKeywords.map(kw => (
+        <span class="text-xs bg-red-50 text-red-600 border border-red-100 rounded px-2 py-0.5 font-mono">{kw}</span>
+      ))}
+    </div>
+  </div>
 </Layout>

@@ -24,37 +24,28 @@ const current = Astro.url.pathname;
   <!-- Header -->
   <header class="border-b border-gray-200">
     <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <div class="w-3 h-8 rounded" style="background: var(--bbg-red)"></div>
-        <div>
-          <div class="font-bold text-sm tracking-wide uppercase" style="color: var(--bbg-gray-dark)">Beyond Border Group</div>
-          <div class="text-xs" style="color: var(--bbg-gray-muted)">SEO & Ads Intelligence</div>
-        </div>
-      </div>
-      <div class="flex items-center gap-4">
-        <nav class="flex items-center gap-1">
-          {nav.map(item => (
-            <a
-              href={item.href}
-              class={`px-3 py-1.5 rounded text-sm font-medium transition-colors ${
-                current === item.href
-                  ? 'text-white'
-                  : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
-              }`}
-              style={current === item.href ? 'background: var(--bbg-gray-dark)' : ''}
-            >
-              {item.label}
-            </a>
-          ))}
-        </nav>
-        <a href="https://beyondbordergroup.com" target="_blank" rel="noopener">
-          <img
-            src="https://beyondbordergroup.com/wp-content/uploads/2024/11/Logo-Beyond-Litho.png"
-            alt="Beyond Border Group"
-            class="h-8 w-auto"
-          />
-        </a>
-      </div>
+      <a href="/">
+        <img
+          src="https://beyondbordergroup.com/wp-content/uploads/2024/11/Logo-Beyond-Litho.png"
+          alt="Beyond Border Group"
+          class="h-8 w-auto"
+        />
+      </a>
+      <nav class="flex items-center gap-1">
+        {nav.map(item => (
+          <a
+            href={item.href}
+            class={`px-3 py-1.5 rounded text-sm font-medium transition-colors ${
+              current === item.href
+                ? 'text-white'
+                : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+            }`}
+            style={current === item.href ? 'background: var(--bbg-gray-dark)' : ''}
+          >
+            {item.label}
+          </a>
+        ))}
+      </nav>
     </div>
   </header>
 
