@@ -16,37 +16,57 @@ BBG = "beyondbordergroup.com"
 # ── Keyword Groups ────────────────────────────────────────────────
 # Format: { "slug": {"keywords": [...], "location_code": int, "language_code": str} }
 GROUPS = {
-    "01-china-ecommerce-agency-fr": {
+    "01-china-ecommerce-agency": {
         "keywords": [
-            "agence ecommerce chine",
-            "consultant ecommerce chine",
-            "consulting ecommerce chine",
-            "services ecommerce chine",
-            "stratégie ecommerce chine",
-            "gestion ecommerce chine",
-            "solutions ecommerce chine",
-            "expert ecommerce chine",
-            "agence chine ecommerce",
-            "conseil ecommerce chine",
+            "china ecommerce consulting",
+            "china ecommerce agency",
+            "china ecommerce consultant",
+            "ecommerce consulting china",
+            "china ecommerce services",
+            "china ecommerce strategy",
+            "china ecommerce strategy consulting",
+            "china ecommerce management",
+            "china ecommerce solutions",
+            "china ecommerce experts",
+            "china ecommerce advisor",
         ],
-        "location_code": 2250,   # France
-        "language_code": "fr",
+        "location_code": 2840,   # USA / Global EN
+        "language_code": "en",
     },
-    "02-cross-border-ecommerce-fr": {
+    "02-cross-border-ecommerce": {
         "keywords": [
-            "ecommerce transfrontalier chine",
-            "agence ecommerce transfrontalier chine",
-            "consulting ecommerce transfrontalier chine",
-            "CBEC chine consulting",
-            "agence CBEC",
-            "stratégie CBEC chine",
-            "solutions CBEC chine",
-            "consultant commerce transfrontalier chine",
-            "vendre en chine sans entité",
-            "ecommerce chine sans entité juridique",
+            "china cross border ecommerce consulting",
+            "cross border ecommerce china",
+            "CBEC consulting china",
+            "CBEC agency",
+            "cross border ecommerce agency china",
+            "cross border ecommerce agency",
+            "china CBEC strategy",
+            "china CBEC solutions",
+            "cross border commerce china consultant",
         ],
-        "location_code": 2250,   # France
-        "language_code": "fr",
+        "location_code": 2840,
+        "language_code": "en",
+    },
+    "03-market-entry": {
+        "keywords": [
+            "china market entry consulting",
+            "china market entry agency",
+            "china market entry strategy",
+            "china market entry services",
+            "enter chinese market",
+            "entering the china market",
+            "how to enter china market",
+            "china market entry for brands",
+            "china market expansion consulting",
+            "launch brand in china",
+            "china brand launch consulting",
+            "market entry strategy china consulting",
+            "china business entry consulting",
+            "go to market strategy china",
+        ],
+        "location_code": 2840,
+        "language_code": "en",
     },
 }
 
