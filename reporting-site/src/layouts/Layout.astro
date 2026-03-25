@@ -31,21 +31,30 @@ const current = Astro.url.pathname;
           <div class="text-xs" style="color: var(--bbg-gray-muted)">SEO & Ads Intelligence</div>
         </div>
       </div>
-      <nav class="flex items-center gap-1">
-        {nav.map(item => (
-          <a
-            href={item.href}
-            class={`px-3 py-1.5 rounded text-sm font-medium transition-colors ${
-              current === item.href
-                ? 'text-white'
-                : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
-            }`}
-            style={current === item.href ? 'background: var(--bbg-gray-dark)' : ''}
-          >
-            {item.label}
-          </a>
-        ))}
-      </nav>
+      <div class="flex items-center gap-4">
+        <nav class="flex items-center gap-1">
+          {nav.map(item => (
+            <a
+              href={item.href}
+              class={`px-3 py-1.5 rounded text-sm font-medium transition-colors ${
+                current === item.href
+                  ? 'text-white'
+                  : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+              }`}
+              style={current === item.href ? 'background: var(--bbg-gray-dark)' : ''}
+            >
+              {item.label}
+            </a>
+          ))}
+        </nav>
+        <a href="https://beyondbordergroup.com" target="_blank" rel="noopener">
+          <img
+            src="https://beyondbordergroup.com/wp-content/uploads/2024/11/Logo-Beyond-Litho.png"
+            alt="Beyond Border Group"
+            class="h-8 w-auto"
+          />
+        </a>
+      </div>
     </div>
   </header>
 
