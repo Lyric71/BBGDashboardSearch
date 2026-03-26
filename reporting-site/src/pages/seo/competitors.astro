@@ -15,24 +15,26 @@ const groups = files.map(f => {
 
   // Extract title from first heading
   const titleLine = lines.find(l => l.startsWith('# '));
-  const title = titleLine ? titleLine.replace('# SERP Rank Report — ', '').replace('# ', '') : f;
+  const title = titleLine ? titleLine.replace(/^#\s*SERP Report\s*[—-]\s*/, '').replace(/^#\s*/, '') : f;
 
   // Extract meta line
   const metaLine = lines.find(l => l.startsWith('Date:'));
   const meta = metaLine || '';
 
-  // Split into rank table section and score section
-  const scoreSep = raw.indexOf('## Top Competitor Visibility Score');
+  // Split into rank table section and competitors section
+  const scoreSep = raw.indexOf('## Top 10 Competitors');
   const rankSection = scoreSep > -1 ? raw.slice(0, scoreSep) : raw;
   const scoreSection = scoreSep > -1 ? raw.slice(scoreSep) : '';
 
   // Parse BBG summary from rank table
+  // Columns: | Keyword | Volume | CPC | Comp. | #1 Domain | beyondbordergroup.com | ...
+  // After split on '|': [0]='', [1]=Keyword, [2]=Volume, [3]=CPC, [4]=Comp, [5]=#1Domain, [6]=BBG
   const tableLines = lines.filter(l => l.startsWith('| ') && !l.startsWith('| Keyword') && !l.startsWith('|---'));
   let bbgPage1 = 0, bbgPage2 = 0, bbgMissing = 0;
   for (const line of tableLines) {
     const cols = line.split('|').map(c => c.trim());
-    const bbgCol = cols[3]; // BBG is 3rd col after keyword and #1
-    if (!bbgCol || bbgCol === '-') bbgMissing++;
+    const bbgCol = cols[6]; // BBG is at index 6
+    if (!bbgCol || bbgCol === '—' || bbgCol === '-' || bbgCol === '') bbgMissing++;
     else if (bbgCol.startsWith('**')) bbgPage1++;
     else if (!bbgCol.startsWith('*')) bbgPage1++;
     else bbgPage2++;
@@ -111,7 +113,7 @@ const groups = files.map(f => {
 
           <!-- Visibility scores -->
           <div class="px-6 pb-6 pt-2">
-            <h3 class="text-xs font-semibold uppercase tracking-widest mb-3" style="color: var(--bbg-gray-muted)">Competitor Visibility Scores</h3>
+            <h3 class="text-xs font-semibold uppercase tracking-widest mb-3" style="color: var(--bbg-gray-muted)">Top 10 Competitors (auto-discovered)</h3>
             <div class="overflow-x-auto rounded-xl border border-gray-100">
               <div class="prose max-w-none" set:html={g.scoreHtml} />
             </div>

@@ -14,8 +14,8 @@ from google.ads.googleads.errors import GoogleAdsException
 # ── Config ────────────────────────────────────────────────────────────────────
 CUSTOMER_ID = '5575776523'
 FINAL_URL   = 'https://beyondbordergroup.com'
-BUDGET_MICROS = 5_000_000   # HKD 5 / day
-CPC_MICROS    = 10_000_000  # HKD 10 default CPC
+BUDGET_MICROS = 100_000_000  # HKD 100 / day
+CPC_MICROS    = 5_000_000   # HKD 5 default CPC
 
 with open('config/credentials.yml') as f:
     creds = yaml.safe_load(f)['google_ads']
