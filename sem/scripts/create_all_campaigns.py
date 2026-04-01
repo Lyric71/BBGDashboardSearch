@@ -3,7 +3,7 @@ Create all BBG Google Ads campaigns, ad groups, keywords and RSA ads.
 Account : 557-577-6523
 Status  : All PAUSED — review before enabling
 Budget  : HKD 5/day per campaign
-Match   : EXACT only
+Match   : PHRASE
 URL     : https://beyondbordergroup.com
 """
 import yaml, warnings
@@ -15,7 +15,7 @@ from google.ads.googleads.errors import GoogleAdsException
 CUSTOMER_ID = '5575776523'
 FINAL_URL   = 'https://beyondbordergroup.com'
 BUDGET_MICROS = 100_000_000  # HKD 100 / day
-CPC_MICROS    = 5_000_000   # HKD 5 default CPC
+CPC_MICROS    = 10_000_000  # HKD 10 default CPC
 
 with open('config/credentials.yml') as f:
     creds = yaml.safe_load(f)['google_ads']
@@ -819,7 +819,7 @@ def add_keywords(ag_resource, keywords):
         kw.ad_group = ag_resource
         kw.status = client.enums.AdGroupCriterionStatusEnum.ENABLED
         kw.keyword.text = text
-        kw.keyword.match_type = client.enums.KeywordMatchTypeEnum.EXACT
+        kw.keyword.match_type = client.enums.KeywordMatchTypeEnum.PHRASE
         ops.append(op)
     res = kw_svc.mutate_ad_group_criteria(customer_id=CUSTOMER_ID, operations=ops)
     print(f'    {len(res.results)} keywords added')
