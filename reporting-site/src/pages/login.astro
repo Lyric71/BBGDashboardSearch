@@ -1,0 +1,90 @@
+---
+import '../styles/global.css';
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login — BBG SEO & Ads</title>
+</head>
+<body class="min-h-screen flex items-center justify-center" style="background: var(--bbg-gray-light)">
+  <div class="w-full max-w-sm">
+    <div class="rounded-3xl bg-white p-8 border border-gray-100" style="box-shadow: 10px 5px 20px rgba(0,0,0,0.08)">
+      <div class="flex justify-center mb-6">
+        <img
+          src="https://beyondbordergroup.com/wp-content/uploads/2024/11/Logo-Beyond-Litho.png"
+          alt="Beyond Border Group"
+          class="h-8 w-auto"
+        />
+      </div>
+      <h1 class="text-xl font-bold text-center mb-1">SEO & Ads Intelligence</h1>
+      <p class="text-sm text-gray-400 text-center mb-6">Sign in to access reports</p>
+
+      <form id="login-form" class="space-y-4">
+        <div>
+          <label for="username" class="block text-xs font-semibold uppercase tracking-wide text-gray-500 mb-1">Login</label>
+          <input
+            id="username"
+            type="text"
+            autocomplete="username"
+            required
+            class="w-full px-4 py-2.5 rounded-lg border border-gray-200 text-sm focus:outline-none focus:border-gray-900 transition-colors"
+            placeholder="Enter login"
+          />
+        </div>
+        <div>
+          <label for="password" class="block text-xs font-semibold uppercase tracking-wide text-gray-500 mb-1">Password</label>
+          <input
+            id="password"
+            type="password"
+            autocomplete="current-password"
+            required
+            class="w-full px-4 py-2.5 rounded-lg border border-gray-200 text-sm focus:outline-none focus:border-gray-900 transition-colors"
+            placeholder="Enter password"
+          />
+        </div>
+        <p id="error-msg" class="text-sm text-red-500 hidden">Invalid login or password.</p>
+        <button
+          type="submit"
+          class="w-full py-2.5 rounded-lg text-sm font-semibold text-white transition-colors"
+          style="background: var(--bbg-gray-dark)"
+        >
+          Sign in
+        </button>
+      </form>
+    </div>
+    <p class="text-center text-xs mt-4" style="color: var(--bbg-gray-muted)">beyondbordergroup.com</p>
+  </div>
+
+  <script>
+    // Hash credentials so they're not in plain text in the built JS
+    async function sha256(str: string): Promise<string> {
+      const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+      return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    // Pre-computed SHA-256 of "Beyond:Beyond888+"
+    const VALID_HASH = '6cc34f09bba51d4c08fd841cb89d568cd1f984e6669fc6394734787827d04b76';
+
+    // If already logged in, go to dashboard
+    if (sessionStorage.getItem('bbg_auth') === 'true') {
+      window.location.replace('/');
+    }
+
+    document.getElementById('login-form')!.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const user = (document.getElementById('username') as HTMLInputElement).value;
+      const pass = (document.getElementById('password') as HTMLInputElement).value;
+      const hash = await sha256(user + ':' + pass);
+
+      if (hash === VALID_HASH) {
+        sessionStorage.setItem('bbg_auth', 'true');
+        window.location.replace('/');
+      } else {
+        document.getElementById('error-msg')!.classList.remove('hidden');
+      }
+    });
+  </script>
+</body>
+</html>

@@ -7,6 +7,7 @@ const nav = [
   { label: 'Keywords', href: '/topics/keywords' },
   { label: 'Competitors', href: '/topics/competitors' },
   { label: 'Ads', href: '/topics/ads' },
+  { label: 'Report', href: '/sem/report' },
   { label: 'Content', href: '/topics/content' },
   { label: '🇬🇧 EN', href: '/lang/en' },
 ];
@@ -60,5 +61,11 @@ const current = Astro.url.pathname;
       <span>Updated {new Date().toLocaleDateString('en-CA')}</span>
     </div>
   </footer>
+
+  <script>
+    if (sessionStorage.getItem('bbg_auth') !== 'true') {
+      window.location.replace('/login');
+    }
+  </script>
 </body>
 </html>
