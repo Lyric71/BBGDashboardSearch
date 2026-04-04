@@ -1,16 +1,19 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import fs from 'node:fs';
-import path from 'node:path';
+import { readFileSync, existsSync } from 'fs';
+import { join } from 'path';
 
 // Load performance data from JSON export
-const dataPath = path.resolve('..', 'data', 'google_ads_performance.json');
+const dataPath = join(process.cwd(), '..', 'data', 'google_ads_performance.json');
 let data: any = null;
 let error = '';
 
 try {
-  const raw = fs.readFileSync(dataPath, 'utf-8');
-  data = JSON.parse(raw);
+  if (existsSync(dataPath)) {
+    data = JSON.parse(readFileSync(dataPath, 'utf-8'));
+  } else {
+    error = 'No performance data found. Run: python sem/scripts/export_keyword_performance.py';
+  }
 } catch (e) {
   error = 'No performance data found. Run: python sem/scripts/export_keyword_performance.py';
 }
